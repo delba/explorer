@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: carta_development
+
+test:
+  <<: *default
+  database: carta_test
+
+production:
+  <<: *default
+  database: carta_production
