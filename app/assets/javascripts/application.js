@@ -3,6 +3,7 @@
 //= require turbolinks
 //
 //= require bootstrap
+//= require L.Control.Locate
 //
 //= require category
 //= require map
