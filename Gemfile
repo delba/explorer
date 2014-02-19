@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.0.beta1'
+gem 'rails', '4.1.0.rc1'
 gem 'pg'
 gem 'sass-rails', '~> 4.0.0.rc1'
 gem 'uglifier', '>= 1.3.0'
@@ -10,6 +10,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 gem 'bootstrap-sass'
+
+gem 'foursquare2'
 
 group :development, :test do
   gem 'debugger'
