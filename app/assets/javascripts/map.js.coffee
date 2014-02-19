@@ -37,7 +37,6 @@ showVenues = (category) =>
     "<a href='#' class='list-group-item'>#{venue.name}</a>"
 
   $("##{category.name} .list-group")
-    .find('.searching').hide().end()
     .append venues
 
 showCategory = (e) =>
@@ -59,21 +58,13 @@ showCategory = (e) =>
 locationFound = (e) =>
   @geoLocation = e.latlng
 
-  $('.locate-me').hide()
-  $('.searching').show()
-
   name = $('.nav li.active').text().toLowerCase()
 
   category = Category.findByName name
 
   searchVenues category
 
-locateMe = (e) =>
-  e.preventDefault()
-  @map.locate()
-
 $(document).on 'show.bs.tab', 'a[data-toggle="pill"]', showCategory
-$(document).on 'click', 'a.locate-me, p.locate-me a', locateMe
 
 ready = =>
   # Set up the map
@@ -113,5 +104,7 @@ ready = =>
 
   for category in Category.all
     @map.addLayer category.map
+
+  L.control.locate().addTo @map
 
 $(document).on 'ready', ready
