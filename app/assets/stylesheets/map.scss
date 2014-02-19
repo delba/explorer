@@ -1,0 +1,40 @@
+body {
+  background: #fafafa;
+  padding: 30px 15px;
+  color: #444;
+}
+
+#main {
+  @include clearfix;
+}
+
+#map-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.results {
+  @include make-xs-column(12);
+
+  @include make-sm-column(4);
+  @include make-sm-column-offset(8);
+}
+
+.box {
+  background: #fafafa;
+  /*padding: 15px;*/
+  /*border: 1px solid #eee;*/
+}
+
+.nav-pills {
+  li a {
+    border-radius: 0;
+  }
+}
+
+.searching {
+  display: none;
+}

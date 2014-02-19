@@ -4,4 +4,5 @@
 //
 //= require bootstrap
 //
-//= require_tree .
+//= require category
+//= require map
