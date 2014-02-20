@@ -84,6 +84,7 @@ GEM
       faraday (~> 0.8)
       faraday_middleware (>= 0.8)
       hashie (>= 1.0, < 3.0.0)
+    geocoder (1.1.9)
     guard (2.4.0)
       formatador (>= 0.2.4)
       listen (~> 2.1)
@@ -219,6 +220,7 @@ DEPENDENCIES
   commands
   debugger
   foursquare2
+  geocoder
   guard
   guard-livereload
   guard-minitest
