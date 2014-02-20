@@ -33,10 +33,20 @@ showMarkers = (category) =>
   @map.addLayer category.markers
 
 showVenues = (category) =>
-  venues = for venue in category.data.venues
-    "<a href='#' class='list-group-item'>#{venue.name}</a>"
+  venues = for venue, index in category.data.venues
+    parent = "##{category.name}_venues"
+    id = "#{category.name}_#{index}"
 
-  $("##{category.name} .list-group")
+    """
+    <div class="list-group-item panel">
+      <a data-toggle="collapse" data-parent="#{parent}" data-target="##{id}">
+        #{venue.name}
+      </a>
+      <div id="#{id}" class="collapse"></div>
+    </div>
+    """
+
+  $("##{category.name}_venues")
     .append venues
 
 showCategory = (e) =>
@@ -66,45 +76,50 @@ locationFound = (e) =>
 
 $(document).on 'show.bs.tab', 'a[data-toggle="pill"]', showCategory
 
-ready = =>
-  # Set up the map
+#ready = =>
+@Map =
+  init: (geoLocation) ->
+    geoLocation = JSON.parse(geoLocation)
 
-  @map = L.map('map-container',
-    zoomControl: false
-    attributionControl: false
-  ).setView([37.779, -122.418], 13)
+    console.log geoLocation.latitude
 
-  @map.on 'locationfound', locationFound
+    @map = L.map('map-container',
+      zoomControl: false
+      attributionControl: false
+    ).setView([geoLocation.latitude, geoLocation.longitude], 18)
 
-  # Create data
+    @map.on 'locationfound', locationFound
 
-  new Category
-    name: 'coffee'
-    id: '4bf58dd8d48988d1e0931735'
-    map: 'delba.h4dco5m4'
-    data: null
-    markers: null
+    # Create data
 
-  new Category
-    name: 'bourbon'
-    id: '4bf58dd8d48988d122941735'
-    map: 'delba.h4c3hgpj'
-    data: null
-    markers: null
+    new Category
+      name: 'coffee'
+      id: '4bf58dd8d48988d1e0931735'
+      map: 'delba.h4dco5m4'
+      data: null
+      markers: null
 
-  new Category
-    name: 'club'
-    id: '4bf58dd8d48988d11f941735'
-    map: 'delba.h4dd4chj'
-    data: null
-    markers: null
+    new Category
+      name: 'bourbon'
+      id: '4bf58dd8d48988d122941735'
+      map: 'delba.h4c3hgpj'
+      data: null
+      markers: null
 
-  coffee = Category.findByName 'coffee'
-  showMap coffee
+    new Category
+      name: 'club'
+      id: '4bf58dd8d48988d11f941735'
+      map: 'delba.h4dd4chj'
+      data: null
+      markers: null
 
-  for category in Category.all
-    @map.addLayer category.map
+    coffee = Category.findByName 'coffee'
+    showMap coffee
 
-  L.control.locate().addTo @map
+    for category in Category.all
+      @map.addLayer category.map
 
-$(document).on 'ready', ready
+    L.control.locate().addTo @map
+
+#$(document).on 'ready', ready
+

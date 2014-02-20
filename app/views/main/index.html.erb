@@ -11,20 +11,24 @@
 
       <div class="tab-content">
         <div class="tab-pane active" id="coffee">
-          <div class="list-group">
+          <div id="coffee_venues" class="list-group">
           </div>
         </div>
 
         <div class="tab-pane" id="bourbon">
-          <div class="list-group">
+          <div id="bourbon_venues" class="list-group">
           </div>
         </div>
 
         <div class="tab-pane" id="club">
-          <div class="list-group">
+          <div id="club_venues" class="list-group">
           </div>
         </div>
     </div>
     </div>
   </div>
 </section>
+
+<script type="text/javascript" charset="utf-8">
+  Map.init('<%= raw @geoLocation.to_json %>');
+</script>
