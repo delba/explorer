@@ -1,3 +1,7 @@
+$coffee: #73b6e6;
+$bourbon: #f4bf70;
+$club: #9a89cc;
+
 body {
   background: #fafafa;
   padding: 30px 15px;
@@ -30,7 +34,35 @@ body {
 }
 
 .nav-pills {
-  li a {
-    border-radius: 0;
+  li {
+    a {
+      color: #555;
+      font-weight: bold;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 8px;
+      border-radius: 0;
+    }
+
+    &.active a {
+      background: transparent;
+      color: #555;
+
+      &[data-category="coffee"] {
+        border-color: $coffee;
+      }
+
+      &[data-category="bourbon"] {
+        border-color: $bourbon;
+      }
+
+      &[data-category="club"] {
+        border-color: $club;
+      }
+    }
   }
+}
+
+.list-group-item:first-child,
+.list-group-item:last-child {
+  border-radius: 0;
 }
