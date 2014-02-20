@@ -40,7 +40,7 @@ showVenues = (category) =>
     .append venues
 
 showCategory = (e) =>
-  name = e.target.text.toLowerCase()
+  name = $(e.target).data('category')
 
   category = Category.findByName name
 
@@ -58,7 +58,7 @@ showCategory = (e) =>
 locationFound = (e) =>
   @geoLocation = e.latlng
 
-  name = $('.nav li.active').text().toLowerCase()
+  name = $('.nav li.active a').data('category')
 
   category = Category.findByName name
 
