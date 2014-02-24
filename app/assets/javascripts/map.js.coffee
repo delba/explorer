@@ -1,6 +1,13 @@
 @geoLocation = null
 @map = null
 
+venueTemplate = (venue) -> """
+  <article>
+    <h6>#{venue.name}</h6>
+    <p>#{venue.location.address}<br />#{venue.location.postalCode} #{venue.location.city} #{venue.location.state}</p>
+  </article>
+"""
+
 searchVenues = (category) =>
   $.ajax
     type: 'GET'
@@ -11,7 +18,8 @@ searchVenues = (category) =>
     dataType: 'json'
     success: (json) ->
       category.data = json
-      category.markers = L.geoJson
+
+      featureCollection =
         type: 'FeatureCollection'
         features: for venue in json.venues
           type: 'Feature'
@@ -19,6 +27,10 @@ searchVenues = (category) =>
             type: 'Point'
             coordinates: [venue.location.lng, venue.location.lat]
           properties: venue
+
+      category.markers = new L.GeoJSON featureCollection,
+        onEachFeature: (feature, layer) ->
+          layer.bindPopup venueTemplate(feature.properties)
 
       showMarkers category
       showVenues category
@@ -118,19 +130,21 @@ ready = =>
 
   @map.locate()
 
-highlightMarker = (e) ->
+openPopup = (e) =>
   e.preventDefault()
 
-  category = Category.findByName($(this).data('category'))
+  $target = $(e.target)
 
-  id = $(this).data('id')
+  id = $target.data('id')
+  name = $taget.data('category')
 
-  category.markers.eachLayer (layer) ->
-    if layer.feature.properties.id isnt id
-      layer.setOpacity 0.2
-    else
-      layer.setOpacity 1
+  category = Category.findByName name
+
+  category.markers.eachLayer (layer) =>
+    if layer.feature.properties.id is id
+      layer.openPopup()
+      @map.setView layer.getLatLng(), 13
 
 $(document).on 'ready', ready
 
-$(document).on 'click', '.list-group-item a', highlightMarker
+$(document).on 'click', '.list-group-item a', openPopup
