@@ -39,7 +39,7 @@ showVenues = (category) =>
 
     """
     <div class="list-group-item panel">
-      <a data-toggle="collapse" data-parent="#{parent}" data-target="##{id}">
+      <a data-category="#{category.name}" data-id="#{venue.id}" data-toggle="collapse" data-parent="#{parent}" data-target="##{id}">
         #{venue.name}
       </a>
       <div id="#{id}" class="collapse"></div>
@@ -118,4 +118,19 @@ ready = =>
 
   @map.locate()
 
+highlightMarker = (e) ->
+  e.preventDefault()
+
+  category = Category.findByName($(this).data('category'))
+
+  id = $(this).data('id')
+
+  category.markers.eachLayer (layer) ->
+    if layer.feature.properties.id isnt id
+      layer.setOpacity 0.2
+    else
+      layer.setOpacity 1
+
 $(document).on 'ready', ready
+
+$(document).on 'click', '.list-group-item a', highlightMarker
