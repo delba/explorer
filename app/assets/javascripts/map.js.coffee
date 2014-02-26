@@ -136,7 +136,7 @@ openPopup = (e) =>
   $target = $(e.target)
 
   id = $target.data('id')
-  name = $taget.data('category')
+  name = $target.data('category')
 
   category = Category.findByName name
 
