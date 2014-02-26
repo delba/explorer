@@ -12,7 +12,6 @@ gem 'jbuilder', '~> 1.2'
 gem 'bootstrap-sass'
 
 gem 'foursquare2'
-gem 'geocoder'
 
 group :development, :test do
   gem 'debugger'

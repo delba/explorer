@@ -1,8 +1,4 @@
 class MainController < ApplicationController
-  def index
-    @geoLocation = Geocoder.search(ip).first.data
-  end
-
   def search
     venues = client.search_venues(
       ll: params[:ll],
@@ -13,10 +9,6 @@ class MainController < ApplicationController
   end
 
 private
-
-  def ip
-    '67.164.72.245'
-  end
 
   def client
     @client ||= Foursquare2::Client.new(
